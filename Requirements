@@ -1,4 +1,7 @@
-grainField depends on external libraries.
+grainField depends on openFrameworks and other libraries.
+
+openFramewoks
+http://www.openframeworks.cc/
 
 json-c
 https://github.com/json-c/json-c
@@ -6,5 +9,5 @@ https://github.com/json-c/json-c
 FFTW 3
 http://www.fftw.org/
 
-You must buid each libraries like bellow.
+You must buid json-c and FFTW 3 like bellow.
 CFLAGS="-arch i386" LDFLAGS="-arch i386" ./configure --enable-static=yes
