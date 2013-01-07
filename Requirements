@@ -1,0 +1,10 @@
+grainField depends on external libraries.
+
+json-c
+https://github.com/json-c/json-c
+
+FFTW 3
+http://www.fftw.org/
+
+You must buid each libraries like bellow.
+CFLAGS="-arch i386" LDFLAGS="-arch i386" ./configure --enable-static=yes
