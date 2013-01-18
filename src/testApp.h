@@ -249,6 +249,8 @@ private:
 	float lastParameterFade;
     
     bool isFullscreen;
+    
+    static const float PARAMETER_STEP;
 public:
     enum {
         WINDOWED_WIDTH = 800,

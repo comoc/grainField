@@ -50,6 +50,8 @@ const float testApp::PEAK_DECAY_DEFAULT = 0.98f;
 
 const int testApp::SAMPLES = 256;
 
+const float testApp::PARAMETER_STEP = 0.1f;
+
 #if 1
 namespace
 {
@@ -247,6 +249,17 @@ void ScanDirCallback(void* param, bool isDir, const char* path)
 }
 #endif
 
+
+namespace {
+    void IncrementPosition(ControllableParameter* p) {
+        p->setPosition(p->getPosition() + 1);
+        
+    }
+    void DecrementPosition(ControllableParameter* p) {
+        p->setPosition(p->getPosition() - 1);
+        
+    }
+}
 
 testApp::testApp()
 : imageSourceA(0)
@@ -2324,69 +2337,142 @@ void testApp::updateOscMessage()
 void testApp::updateControllableParameters()
 {
 	if (keys['q']) {
-		paramPointSize.setFraction((float)mouseX / (float)width);
-	//	parameterFade = (float)mouseX / (float)width;
-	}
+        printf("q\n");
+        IncrementPosition(&paramPointSize);
+    }
+	else if (keys['Q']) { // Not (keys['q] && isShiftPressed) but keys['Q'].
+        printf("Q\n");
+        DecrementPosition(&paramPointSize);
+    }
+
 	if (keys['w'])
-		scaleX.setFraction((float)mouseX / (float)width);
+        IncrementPosition(&scaleX);
+	else if (keys['W'])
+        DecrementPosition(&scaleX);
+
 	if (keys['e'])
-		scaleY.setFraction((float)mouseX / (float)width);
+        IncrementPosition(&scaleY);
+	else if (keys['E'])
+        DecrementPosition(&scaleY);
+    
 	if (keys['r'])
-		rotationX.setFraction((float)mouseX / (float)width);
-	if (keys['t'])
-		rotationY.setFraction((float)mouseX / (float)width);
+        IncrementPosition(&rotationX);
+	else if (keys['R'])
+        DecrementPosition(&rotationX);
+
+    if (keys['t'])
+        IncrementPosition(&rotationY);
+    else if (keys['T'])
+        DecrementPosition(&rotationY);
+
 	if (keys['y'])
-		rotationCenterX.setFraction((float)mouseX / (float)width);
-	if (keys['u'])
-		rotationCenterY.setFraction((float)mouseX / (float)width);
-	if (keys['i'])
-		distance.setFraction((float)mouseX / (float)width);
-	if (keys['o'])
-		displacementGain.setFraction((float)mouseX / (float)width);
-	if (keys['p'])
-		zClip.setFraction((float)mouseX / (float)width);
+		IncrementPosition(&rotationCenterX);
+    else if (keys['Y'])
+		DecrementPosition(&rotationCenterX);
+	
+    if (keys['u'])
+		IncrementPosition(&rotationCenterY);
+    else if (keys['U'])
+		DecrementPosition(&rotationCenterY);
 
-	if (keys['a'])
-		zOffset.setFraction((float)mouseX / (float)width);
-	if (keys['s'])
-		colorGain.setFraction((float)mouseX / (float)width);
-	if (keys['d'])
-		textureBlend.setFraction((float)mouseX / (float)width);
-	if (keys['f'])
-		meshNumX.setFraction((float)mouseX / (float)width);
-	if (keys['g'])
-		meshNumY.setFraction((float)mouseX / (float)width);
-	if (keys['h'])
-		pointSmoothMode.setFraction((float)mouseX / (float)width);
-	if (keys['j'])
-		noiseGain.setFraction((float)mouseX / (float)width);
-	if (keys['k'])
-		drawMode.setFraction((float)mouseX / (float)width);
-	if (keys['l'])
-		soundGain.setFraction((float)mouseX / (float)width);
-	
-	if (keys['z'])
-		peakDecay.setFraction((float)mouseX / (float)width);
-	
-	if (keys['x'])
-		peakLumiGain.setFraction((float)mouseX / (float)width);
+    if (keys['i'])
+		IncrementPosition(&distance);
+    else if (keys['I'])
+		DecrementPosition(&distance);
 
-	if (keys['c'])
-		peakPointSizeGain.setFraction((float)mouseX / (float)width);
-	
-	if (keys['v'])
-		textureFilter.setFraction((float)mouseX / (float)width);
-	
-	if (keys['b'])
-		blendingMode.setFraction((float)mouseX / (float)width);
+    if (keys['o'])
+		IncrementPosition(&displacementGain);
+    else if (keys['O'])
+		DecrementPosition(&displacementGain);
+    
+    if (keys['p'])
+		IncrementPosition(&zClip);
+    else if (keys['P'])
+		DecrementPosition(&zClip);
 
-	if (keys['n'])
-		layerCount.setFraction((float)mouseX / (float)width);
+
+    
+    if (keys['a'])
+		IncrementPosition(&zOffset);
+    else if (keys['A'])
+		DecrementPosition(&zOffset);
+    
+    if (keys['s'])
+		IncrementPosition(&colorGain);
+    else if (keys['S'])
+		DecrementPosition(&colorGain);
+
+    if (keys['d'])
+		IncrementPosition(&textureBlend);
+    else if (keys['D'])
+		DecrementPosition(&textureBlend);
+    
+    if (keys['f'])
+		IncrementPosition(&meshNumX);
+    else if (keys['F'])
+		DecrementPosition(&meshNumX);
+    
+    if (keys['g'])
+		IncrementPosition(&meshNumY);
+    else if (keys['G'])
+		DecrementPosition(&meshNumY);
+
+    if (keys['h'])
+		IncrementPosition(&pointSmoothMode);
+    else if (keys['H'])
+		DecrementPosition(&pointSmoothMode);
+
+    if (keys['j'])
+		IncrementPosition(&noiseGain);
+    else if (keys['J'])
+		DecrementPosition(&noiseGain);
+
+    if (keys['k'])
+		IncrementPosition(&drawMode);
+    else if (keys['K'])
+		DecrementPosition(&drawMode);
+
+    if (keys['l'])
+		IncrementPosition(&soundGain);
+    else if (keys['L'])
+		DecrementPosition(&soundGain);
+
+
+    if (keys['z'])
+		IncrementPosition(&peakDecay);
+    else if (keys['Z'])
+		DecrementPosition(&peakDecay);
+    
+    if (keys['x'])
+		IncrementPosition(&peakLumiGain);
+    else if (keys['X'])
+		DecrementPosition(&peakLumiGain);
+    
+    if (keys['c'])
+		IncrementPosition(&peakPointSizeGain);
+    else if (keys['C'])
+		DecrementPosition(&peakPointSizeGain);
+    
+    if (keys['v'])
+		IncrementPosition(&textureFilter);
+    else if (keys['V'])
+		DecrementPosition(&textureFilter);
+    
+    if (keys['b'])
+		IncrementPosition(&blendingMode);
+    else if (keys['B'])
+		DecrementPosition(&blendingMode);
 	
-	if (keys['m'])
-	{
-		autoRotation.setFraction((float)mouseX / (float)width);
-		
+    if (keys['n'])
+		IncrementPosition(&layerCount);
+    else if (keys['N'])
+		DecrementPosition(&layerCount);
+
+    if (keys['m'] || keys['M']) {
+        if (keys['m'])
+            IncrementPosition(&autoRotation);
+        else
+            DecrementPosition(&autoRotation);
 		float max = autoRotation.getRangeMax();
 		float min = autoRotation.getRangeMin();		
 		float current = autoRotation.get();
@@ -2395,18 +2481,18 @@ void testApp::updateControllableParameters()
 			autoRotationTimer.pause();
 		else
 			autoRotationTimer.start(ofGetElapsedTimef());
-	}
+    }
+
+    
+    if (keys[','])
+		IncrementPosition(&focalOffset);
+    else if (keys['<'])
+		DecrementPosition(&focalOffset);
 	
-	if (keys[','])
-	{
-		focalOffset.setFraction((float)mouseX / (float)width);
-		printf("focalOffset:%f\n", focalOffset.get());
-	}
-	
-	if (keys['.'])
-	{
-		 feedbackGain.setFraction((float)mouseX / (float)width);
-	}
+    if (keys['.'])
+		IncrementPosition(&feedbackGain);
+    else if (keys['>'])
+		DecrementPosition(&feedbackGain);
 }
 
 void testApp::resetControllableParameters()
