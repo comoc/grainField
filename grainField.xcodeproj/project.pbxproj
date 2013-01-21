@@ -37,6 +37,7 @@
 		E7E077E515D3B63C0020DFD4 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E077E415D3B63C0020DFD4 /* CoreVideo.framework */; };
 		E7E077E815D3B6510020DFD4 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E077E715D3B6510020DFD4 /* QTKit.framework */; };
 		E7F985F815E0DEA3003869B5 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F985F515E0DE99003869B5 /* Accelerate.framework */; };
+		FD3F20F816ADE33E00F4B607 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = FD3F20F716ADE33E00F4B607 /* README.md */; };
 		FD4A329816904EC300DCEE85 /* BeatDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD4A328116904EC300DCEE85 /* BeatDetector.cpp */; };
 		FD4A329916904EC300DCEE85 /* ControllableParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD4A328316904EC300DCEE85 /* ControllableParameter.cpp */; };
 		FD4A329A16904EC300DCEE85 /* Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD4A328516904EC300DCEE85 /* Controller.cpp */; };
@@ -142,6 +143,7 @@
 		E7E077E415D3B63C0020DFD4 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		E7E077E715D3B6510020DFD4 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		E7F985F515E0DE99003869B5 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = /System/Library/Frameworks/Accelerate.framework; sourceTree = "<absolute>"; };
+		FD3F20F716ADE33E00F4B607 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		FD4A328116904EC300DCEE85 /* BeatDetector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BeatDetector.cpp; sourceTree = "<group>"; };
 		FD4A328216904EC300DCEE85 /* BeatDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeatDetector.h; sourceTree = "<group>"; };
 		FD4A328316904EC300DCEE85 /* ControllableParameter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ControllableParameter.cpp; sourceTree = "<group>"; };
@@ -213,7 +215,6 @@
 		FD4A32FA1690505600DCEE85 /* MultitouchSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultitouchSupport.framework; path = ../../../../System/Library/PrivateFrameworks/MultitouchSupport.framework; sourceTree = "<group>"; };
 		FD4A33021690553B00DCEE85 /* libjson-c.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libjson-c.a"; sourceTree = "<group>"; };
 		FD4A33031690553B00DCEE85 /* libjson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjson.a; sourceTree = "<group>"; };
-		FD4A3312169065C400DCEE85 /* Requirements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Requirements; sourceTree = "<group>"; };
 		FD4A331B16906A9900DCEE85 /* grainFieldDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = grainFieldDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD70DBFA169075EE000380AF /* balls.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = balls.icns; sourceTree = "<group>"; };
 		FDB369231691151500A8F756 /* grainField-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "grainField-Info.plist"; sourceTree = "<group>"; };
@@ -410,9 +411,9 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
+				FD3F20F716ADE33E00F4B607 /* README.md */,
 				FDB369231691151500A8F756 /* grainField-Info.plist */,
 				FD70DBFA169075EE000380AF /* balls.icns */,
-				FD4A3312169065C400DCEE85 /* Requirements */,
 				FD4A32A416904F3C00DCEE85 /* external */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
@@ -752,6 +753,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FDB36927169116E500A8F756 /* balls.icns in Resources */,
+				FD3F20F816ADE33E00F4B607 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

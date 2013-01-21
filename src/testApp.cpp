@@ -1395,9 +1395,12 @@ void testApp::keyPressed(int key)
 	isShiftPressed = ofKeyShift();
 	isControlPressed = ofKeyControl();
 	isAltPressed = ofKeyAlt();
+
+	if (key >= KEYS_SIZE) {
+		return;
+	}
 	
-	if (isShiftPressed)
-		printf("SHIFT key pressed\n");
+    keys[key] = true;
 	
     switch(key)
     {
@@ -1524,13 +1527,7 @@ void testApp::keyPressed(int key)
             OF_EXIT_APP(0);
             break;
 	}
-	
-	
-	if (key >= KEYS_SIZE) {
-		return;
-	}
-	
-	
+
 	if (isAltPressed && key == 'f') {
         printf("⌥+f\n");
         
@@ -1546,10 +1543,6 @@ void testApp::keyPressed(int key)
             int screenH = ofGetScreenHeight();
             ofSetWindowPosition(screenW/2-WINDOWED_WIDTH/2, screenH/2-WINDOWED_HEIGHT/2);
         }
-        return;
-        
-    } else {
-        keys[key] = true;
     }
 }
 
