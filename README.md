@@ -7,9 +7,13 @@ You can use a keyboard, MIDI devices and OSC cliant applications as controller.
 
 ## Screenshot
 This is an example.
+
 * Input
+
 ![input](https://raw.github.com/comoc/grainField/master/input.jpg)
+
 * Output
+
 ![screenshot](https://raw.github.com/comoc/grainField/master/screenshot.png)
 
 ## Execution environment
