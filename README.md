@@ -6,7 +6,11 @@ visual effects to the sounds and separate pixels into point cloud.
 You can use a keyboard, MIDI devices and OSC cliant applications as controller.
 
 ## Screenshot
-![screenshot](screenshot.png)
+This is an example.
+* Input
+![input](https://github.com/comoc/grainField/blob/master/input.jpg)
+* Output
+![screenshot](https://github.com/comoc/grainField/blob/master/screenshot.png)
 
 ## Execution environment
 Current release was tested only Mac OS X.
