@@ -5,6 +5,9 @@ visual effects to the sounds and separate pixels into point cloud.
 
 You can use a keyboard, MIDI devices and OSC cliant applications as controller.
 
+## Screenshot
+![screenshot](screenshot.png)
+
 ## Execution environment
 Current release was tested only Mac OS X.
 
