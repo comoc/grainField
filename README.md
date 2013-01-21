@@ -8,9 +8,9 @@ You can use a keyboard, MIDI devices and OSC cliant applications as controller.
 ## Screenshot
 This is an example.
 * Input
-![input](https://github.com/comoc/grainField/blob/master/input.jpg)
+![input](https://raw.github.com/comoc/grainField/blob/master/input.jpg)
 * Output
-![screenshot](https://github.com/comoc/grainField/blob/master/screenshot.png)
+![screenshot](https://raw.github.com/comoc/grainField/blob/master/screenshot.png)
 
 ## Execution environment
 Current release was tested only Mac OS X.
