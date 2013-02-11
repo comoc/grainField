@@ -127,6 +127,12 @@ private:
     static const float PEAK_DECAY_MAX;
     static const float PEAK_DECAY_MIN;
     static const float PEAK_DECAY_DEFAULT;
+    GLuint texturePeakId;
+    enum
+    {
+        PEAK_HISTORY_COUNT = 128
+    };
+    float peakHistory[PEAK_HISTORY_COUNT];
 
     static const int SAMPLES;
     fftwf_complex *outLeft;
@@ -135,7 +141,7 @@ private:
     fftwf_plan planRight;
     float* fftPeakLeft;
     float* fftPeakRight;
-
+    
     int meshNumXOld;
     int meshNumYOld;
 
@@ -186,6 +192,7 @@ private:
         PARAMETER_AUTO_ROTATION,
         PARAMETER_FOCAL_OFFSET,
         PARAMETER_FEEDBACK_GAIN,
+        PARAMETER_SOUND_FEEDBACK_GAIN,
         PARAMETER_COUNT
     };
     struct PresetEntry
@@ -228,6 +235,7 @@ private:
     ControllableParameter autoRotation;
     ControllableParameter focalOffset;
     ControllableParameter feedbackGain;
+    ControllableParameter soundPeakGain;
 
     static const int MIDI_UNINITIALIZED_VALUE = -1;
     enum { MIDI_PARAMS_SIZE = 256 };

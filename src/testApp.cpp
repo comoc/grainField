@@ -560,11 +560,13 @@ void testApp::setup()
         imageSourcePointSprite->play();
     }
 
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
 //	glGetIntegerv(GL_MAX_TEXTURE_UNITS, &textureIdsNum);
     textureIdsNum = 16;
     textureIds = new GLuint[textureIdsNum];
     glGenTextures(textureIdsNum, textureIds);
-
+    
     pmouseX = pmouseY = 0;
 
     glMatrixMode(GL_TEXTURE);
@@ -592,6 +594,7 @@ void testApp::setup()
     fboFeedback->detach();
 
 
+    // audio, FFT
     ofSoundStreamSetup(0,2, this, 44100, SAMPLES, 4);
     left = new float[SAMPLES];
     right = new float[SAMPLES];
@@ -609,7 +612,17 @@ void testApp::setup()
     fftPeakRight = new float[SAMPLES];
     for (int i = 0; i < SAMPLES; i++)
         fftPeakLeft[i] = fftPeakRight[i] = 0.0f;
-
+    
+    for (int i = 0; i < PEAK_HISTORY_COUNT; i++)
+        peakHistory[i] = 0.0f;
+    glGenTextures(1, &texturePeakId);
+    glBindTexture(texturePeakId, GL_TEXTURE_2D);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);    
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, PEAK_HISTORY_COUNT, 1, 0, GL_LUMINANCE, GL_FLOAT, peakHistory);
+    
     // osc
     receiver.setup( IN_PORT );
 
@@ -687,6 +700,8 @@ void testApp::exit()
         textureIds = 0;
         textureIdsNum = 0;
     }
+    
+    glDeleteTextures(1, &texturePeakId);
 
     if (mesh != 0)
     {
@@ -764,8 +779,8 @@ void testApp::draw()
 #ifdef USE_MIDI_IN
     parseMidiData();
 #endif
-
-
+    
+    
 //	for (int ny = 0; ny < 256; ny++) {
 //		int iy = ny * 256 * 2;
 //		for (int nx = 0; nx < 256; nx++) {
@@ -891,8 +906,11 @@ void testApp::draw()
         glUniform1f(glGetUniformLocation(program, "zOffset"), zOffset.get());
 
         glUniform1f(glGetUniformLocation(program, "timeFraction"), ofGetElapsedTimef());
+        glUniform1f(glGetUniformLocation(program, "aspectRatio"), (float)width / (float)height);
+        
 
         glUniform1f(glGetUniformLocation(program, "soundGain"), soundGain.get());
+        glUniform1f(glGetUniformLocation(program, "soundPeakGain"), soundPeakGain.get());
 
 //		glUniform1f(glGetUniformLocation(program, "width"), ww);
 //		glUniform1f(glGetUniformLocation(program, "height"), wh);
@@ -935,7 +953,6 @@ void testApp::draw()
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-            glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
             GLenum format = GL_LUMINANCE;
             if (bpp == 1)
                 format = GL_LUMINANCE;
@@ -978,7 +995,6 @@ void testApp::draw()
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, texFilter);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-            glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
             GLenum format = GL_LUMINANCE;
             if (bpp == 1)
                 format = GL_LUMINANCE;
@@ -1022,7 +1038,6 @@ void testApp::draw()
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, texFilter);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-            glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
             GLenum format = GL_LUMINANCE;
             if (bpp == 1)
                 format = GL_LUMINANCE;
@@ -1053,8 +1068,6 @@ void testApp::draw()
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, texFilter);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-//		glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE_ALPHA, 256, 256, 0, GL_LUMINANCE_ALPHA, GL_FLOAT, noiseImage);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 256, 256, 0, GL_RGBA, GL_UNSIGNED_BYTE, noiseImage);
         if (program != 0)
         {
@@ -1067,6 +1080,29 @@ void testApp::draw()
     }
 #endif
 
+    // peak texture
+    {
+        for (int i = 1; i < PEAK_HISTORY_COUNT; i++)
+            peakHistory[i - 1] = peakHistory[i];
+        peakHistory[PEAK_HISTORY_COUNT - 1] = peakLeftRight * 2.0f;
+        
+        glActiveTexture(GL_TEXTURE0 + nt);
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(texturePeakId, GL_TEXTURE_2D);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, texFilter);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, texFilter);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, PEAK_HISTORY_COUNT, 1, 0, GL_LUMINANCE, GL_FLOAT, peakHistory);
+        if (program != 0)
+        {
+            string textureUnitName("texture");
+            textureUnitName += ofToString(nt);
+            GLuint location = glGetUniformLocation(program, textureUnitName.c_str());
+            glUniform1i(location, nt);
+        }
+        nt++;
+    }
 
     glEnable(GL_BLEND);
 
@@ -1075,7 +1111,6 @@ void testApp::draw()
     switch (bmode)
     {
     case 0:
-        //加算合成
         glBlendEquationEXT(GL_FUNC_ADD_EXT);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE);
         glDepthFunc(GL_ALWAYS);
@@ -1083,28 +1118,23 @@ void testApp::draw()
 
 #if 0
     case 2:
-        // 減算
         glBlendEquationEXT(GL_FUNC_REVERSE_SUBTRACT_EXT);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE);
         break;
     case 3:
-        //反転合成
         glBlendEquationEXT(GL_FUNC_ADD_EXT);
         glBlendFunc(GL_ONE_MINUS_DST_COLOR, GL_ZERO);
         break;
     case 4:
-        //スクリーン合成
         glBlendEquationEXT(GL_FUNC_ADD_EXT);
         glBlendFunc(GL_ONE_MINUS_DST_COLOR, GL_ONE);
         break;
     case 5:
-        //排他的論理和合成
         glBlendEquationEXT(GL_FUNC_ADD_EXT);
         glBlendFunc(GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_COLOR);
         break;
 #endif
     default:
-        //アルファ合成
         glBlendEquationEXT(GL_FUNC_ADD_EXT);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glDepthFunc(GL_LEQUAL);
@@ -1362,9 +1392,8 @@ void testApp::draw()
                 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, texFilter);
 //				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 //				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-                glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+//              glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
-                glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
                 GLenum format = GL_LUMINANCE;
                 if (bpp == 1)
                     format = GL_LUMINANCE;
@@ -1612,36 +1641,35 @@ void testApp::resized(int w, int h)
 {
 }
 
+static float lastTime = 0.0f;
 //--------------------------------------------------------------
 void testApp::audioReceived(float * input, int bufferSize, int nChannels)
 {
     if (planLeft == 0 || planRight == 0)
         return;
+    
+    if (nChannels < 2)
+        return;
 
     float pd = peakDecay.get();
 
+    float now = ofGetElapsedTimef();
+    lastTime = now;
+    
     // samples are "interleaved"
     peakLeft *= pd;
     peakRight *= pd;
     peakLeftRight *= pd;
     for (int i = 0; i < bufferSize; i++)
     {
-        left[i] = input[i*2];
-        right[i] = input[i*2+1];
+        left[i] = input[i*nChannels];
+        right[i] = input[i*nChannels+1];
         if (left[i] > peakLeft)
             peakLeft = left[i];
         if (left[i] > peakRight)
             peakRight = right[i];
-        if (peakLeft > peakRight)
-        {
-            if (peakLeft > peakLeftRight)
-                peakLeftRight = peakLeft;
-        }
-        else
-        {
-            if (peakRight > peakLeftRight)
-                peakLeftRight = peakRight;
-        }
+
+        peakLeftRight = (left[i] + right[i]) * 0.5f;
     }
     fftwf_execute(planLeft);
     fftwf_execute(planRight);
@@ -1695,38 +1723,6 @@ void testApp::parseMidiData()
             42, 43, 50, 51, 52, 53, 54, 55, 56,
         };
 
-#if 0
-        ControllableParameter paramPointSize;
-        ControllableParameter scaleX;
-        ControllableParameter scaleY;
-        ControllableParameter rotationX;
-        ControllableParameter rotationY;
-        ControllableParameter rotationCenterX;
-        ControllableParameter rotationCenterY;
-        ControllableParameter distance;
-        ControllableParameter displacementGain;
-
-        ControllableParameter zClip;
-        ControllableParameter zOffset;
-        ControllableParameter colorGain;
-        ControllableParameter textureBlend;
-        ControllableParameter meshNumX;
-        ControllableParameter meshNumY;
-        ControllableParameter pointSmoothMode;
-        ControllableParameter noiseGain;
-        ControllableParameter drawMode;
-
-        ControllableParameter soundGain;
-        ControllableParameter peakDecay;
-        ControllableParameter peakLumiGain;
-        ControllableParameter peakPointSizeGain;
-        ControllableParameter textureFilter;
-        ControllableParameter blendingMode;
-        ControllableParameter layerCount;
-        ControllableParameter autoRotation;
-        ControllableParameter focalOffset;
-
-#endif
         if (id == midiId[0] || id == midiId[27])
             setMidiValue(&paramPointSize, id, value);
         else if (id == midiId[1] || id == midiId[28])
@@ -1796,6 +1792,9 @@ void testApp::parseMidiData()
         }
         else if (id == midiId[26] || id == midiId[53])
             setMidiValue(&focalOffset, id, value);
+
+//        else if (id == midiId[27] || id == midiId[54]) //duplication
+//            setMidiValue(&soundPeakGain, id, value);
 
 #if 0
 
@@ -2017,6 +2016,7 @@ void testApp::fadeParameters(float fade)
             &autoRotation,
             &focalOffset,
             &feedbackGain,
+            &soundPeakGain,
         };
 
 
@@ -2287,6 +2287,10 @@ void testApp::updateOscMessage()
             float fade = m.getArgAsFloat(0) / 127.0f;
             fadeParameters(fade);
         }
+        else if (CheckOSCArgs(m, "/soundPeakGain", "f"))
+        {
+            soundPeakGain.setPosition((int)m.getArgAsFloat(0));
+        }
         else
         {
             for (int i = 0; i < PRESET_PARAMETER_COUNT; i++)
@@ -2308,6 +2312,7 @@ void testApp::updateOscMessage()
                 }
             }
         }
+
 //		else if (CheckOSCArgs(m, "/noise_volume", "f"))
 //		{
 //			noiseGain.setPosition((int)m.getArgAsFloat(0));
@@ -2475,6 +2480,11 @@ void testApp::updateControllableParametersWithKeyPressed(int key)
         IncrementPosition(&feedbackGain);
     else if (key == (int)'>')
         DecrementPosition(&feedbackGain);
+    
+    if (key == (int)'/')
+        IncrementPosition(&soundPeakGain);
+    else if (key == (int)'?')
+        DecrementPosition(&soundPeakGain);
 }
 
 void testApp::resetControllableParameters()
@@ -2509,6 +2519,7 @@ void testApp::resetControllableParameters()
     autoRotation.setup(0, 30, 0, 128);
     focalOffset.setup(-1, 1, 0.9f, 128);
     feedbackGain.setup(0, 1, 0.0f, 128);
+    soundPeakGain.setup(0, 4, 0.0f, 128);
 
     float max = autoRotation.getRangeMax();
     float min = autoRotation.getRangeMin();
@@ -2554,6 +2565,7 @@ void testApp::resetControllableParameters()
         &autoRotation,
         &focalOffset,
         &feedbackGain,
+        &soundPeakGain
     };
 
 
@@ -2613,6 +2625,7 @@ bool testApp::loadControllableParameters(int index)
     		&autoRotation,
     		&focalOffset,
     		&feedbackGain,
+            &soundPeakGain
     	};
     */
 
@@ -2684,6 +2697,7 @@ void testApp::saveControllableParameters(int index)
         &autoRotation,
         &focalOffset,
         &feedbackGain,
+        &soundPeakGain,
     };
     if (index < 0 || index >= PRESET_PARAMETER_COUNT)
     {

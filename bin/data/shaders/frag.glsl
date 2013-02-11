@@ -13,7 +13,8 @@ void main()
 
 	vec4 col = clamp(peakOffset + colorGain * gl_Color * ((1.0 - textureBlend) * col0 + textureBlend * col1), 0.0, 1.0);
 
-	//float y = col.x * 0.257 + col.y * 0.504 + col.z * 0.098 + 16.0;
- 	gl_FragColor = col;//vec4(0, y, 0, col.w);
+ 	gl_FragColor = col;
+	//float y = col.r * 0.257 + col.g * 0.504 + col.b * 0.098 + 16.0;
+ 	//gl_FragColor = vec4(y * 0.01, y, y * 0.5, col.a);
 } 
 

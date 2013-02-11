@@ -1,10 +1,13 @@
 uniform sampler2D texture0;
 uniform sampler2D texture1;
 uniform sampler2D texture2;
+uniform sampler2D texture3;
+
 //uniform vec4 viewport;
 //uniform vec3 forcePoint;
 uniform float displacementGain;
 uniform float soundGain;
+uniform float soundPeakGain;
 
 uniform float low;
 uniform float mid;
@@ -15,6 +18,7 @@ uniform float noiseGain;
 uniform float zClip;
 uniform float zOffset;
 uniform float timeFraction;
+uniform float aspectRatio;
 
 //varying float depth;
 
@@ -64,7 +68,7 @@ void main(void)
 	vec3 ndp;
 	vec3 posndp;
 	vec4 posMV;
-	float len;
+//	float len;
     float alpha;
     float sinXZ;
     float bx;
@@ -75,15 +79,24 @@ void main(void)
 	vec4 noise2d;
 	vec4 noise;
 
+	vec2 peak2d;
+	float peaktcs;
+
     alpha = 1.0;
 
     gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;
+
 
 	t0 = texture2D(texture0, gl_TexCoord[0].st);
 	t1 = texture2D(texture1, gl_TexCoord[0].st);
 	noise2d = texture2D(texture2, gl_TexCoord[0].st) - vec4(0.5, 0.5, 0.5, 0.5);
 	noise2d = noiseGain * noise2d;
 	noise = vec4(noise2d.r, noise2d.a, 0.0, 0.0);
+
+	peaktcs = length((gl_TexCoord[0].st - vec2(0.5, 0.5)) * vec2(aspectRatio, 1.0));
+	//peak2d = vec2(0, texture2D(texture3, vec2(peaktcs, 0.0)).r);
+	peak2d = vec2(0, texture2D(texture3, vec2(1.0 - peaktcs, 0.0)).r);
+
 	//noise = texture2D(texture2, gl_TexCoord[0].st);
 	//noise = 0.25 * (2.0 * noise - vec4(1.0, 1.0, 1.0, 1.0));
 	//noise.w = 0.0;
@@ -126,6 +139,8 @@ void main(void)
 	disp.x += bx * soundGain;
 	disp.y += by * soundGain;
 
+	disp.xy += peak2d * soundPeakGain;
+
     if (disp.z < zClip)
         alpha = 0.0;
 	
@@ -158,8 +173,8 @@ void main(void)
 	posMV = gl_ModelViewMatrix * disp;
 	
 
-	len = length(posMV);
-	len *= len;
+//	len = length(posMV);
+//	len *= len;
 	gl_PointSize = pointSize * pointSizeGain;
 //	gl_PointSize = clamp(pointSize / len, 1.0, 1024.0);
 }
