@@ -33,8 +33,11 @@ grainField depends on openFrameworks and other libraries.
 It is necessary to buid json-c and FFTW 3 on your Mac's Terminal, like bellow.
 `CFLAGS="-arch i386" LDFLAGS="-arch i386" ./configure --enable-static=yes`
 
-## Execution
+## Build
+Clone grainField.git into $(OF_ROOT)/apps/myApps.
+Open $(OF_ROOT)/apps/myApps/grainField/grainField.xcodeproj with your Xcode.
 
+## Execution
 Put some movies into the 'bin/data/movies' folder and run grainField.app.
 Key assignments are described in 'testApp.cpp'.
 You can quit this application with pressing ESC or Command+Q keys.
