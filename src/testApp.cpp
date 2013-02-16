@@ -837,7 +837,6 @@ void testApp::draw()
 
     float aspect = (float)ofGetWidth() / (float)ofGetHeight();
 
-    printf("aspect=%f\n", imageSourceAspectRatio);
     //float pixelAspect = (((float)ww / (float)width) / ((float)wh / (float)height));
     //aspect = pixelAspect / 1.33f;
     //aspect = pixelAspect / aspect;
