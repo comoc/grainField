@@ -280,6 +280,8 @@ testApp::testApp()
     , imageSourceIndexNoise(0)
     , imageSourceIndexPointSprite(0)
 
+    , imageSourceAspectRatio(1.0f)
+
     , frameByframe(0)
 
     , textureIds(0)
@@ -833,8 +835,9 @@ void testApp::draw()
     else
         glEnable(GL_POINT_SMOOTH);
 
-    float aspect = (float)width / (float)height;
+    float aspect = (float)ofGetWidth() / (float)ofGetHeight();
 
+    printf("aspect=%f\n", imageSourceAspectRatio);
     //float pixelAspect = (((float)ww / (float)width) / ((float)wh / (float)height));
     //aspect = pixelAspect / 1.33f;
     //aspect = pixelAspect / aspect;
@@ -906,7 +909,8 @@ void testApp::draw()
         glUniform1f(glGetUniformLocation(program, "zOffset"), zOffset.get());
 
         glUniform1f(glGetUniformLocation(program, "timeFraction"), ofGetElapsedTimef());
-        glUniform1f(glGetUniformLocation(program, "aspectRatio"), (float)width / (float)height);
+//        glUniform1f(glGetUniformLocation(program, "aspectRatio"), 1);
+        glUniform1f(glGetUniformLocation(program, "aspectRatio"), imageSourceAspectRatio);
         
 
         glUniform1f(glGetUniformLocation(program, "soundGain"), soundGain.get());
@@ -934,7 +938,6 @@ void testApp::draw()
     glPushMatrix();
     glLoadIdentity();
 
-    float movAspect = 1.333f;
     int nt = 0;
 
     if (imageSourceCamera != 0)
@@ -944,6 +947,9 @@ void testApp::draw()
         {
             int mw = imageSourceCamera->getWidth();
             int mh = imageSourceCamera->getHeight();
+            if (mh > 0)
+                imageSourceAspectRatio = (float)mw / (float)mh;
+            
             int bpp = imageSourceCamera->getBytesPerPixel();
             glActiveTexture(GL_TEXTURE0 + nt);
             glEnable(GL_TEXTURE_2D);
@@ -987,6 +993,7 @@ void testApp::draw()
         {
             int mw = imageSourceA->getWidth();
             int mh = imageSourceA->getHeight();
+            
             int bpp = imageSourceA->getBytesPerPixel();
             glActiveTexture(GL_TEXTURE0 + nt);
             glEnable(GL_TEXTURE_2D);
@@ -1146,25 +1153,20 @@ void testApp::draw()
 
     glTranslatef(rotationCenterX.get(), rotationCenterY.get(), 0);
 
-//	glTranslatef(-rotationCenterX.get(), -rotationCenterY.get(), 0);
-#if 1
     glRotatef(-rotationY.get(), 0, 1, 0);
     glRotatef(rotationX.get(), 1, 0, 0);
-#endif
 
 
     autoRotationTimer.update(ofGetElapsedTimef());
-    //printf("duration:%f fraction:%f\n", autoRotationTimer.getDuration(), autoRotationTimer.getFraction());
     float angle = (autoRotationTimer.getFraction()) * 360.0f;
     glRotatef(angle, 1, 1, 1);
 
-    //glTranslatef(0, 0, 2.0 * peakLeftRight - 1);
     GLfloat sx = scaleX.get();
     sx *= sx;
     GLfloat sy = scaleY.get();
     sy *= sy;
     glScalef(sx, sy, 1.0f);
-    glScalef(movAspect, 1.0f, 1.0f);
+    glScalef(imageSourceAspectRatio, 1.0f, 1.0f);
 
 
     int nl = (int)(layerCount.get());

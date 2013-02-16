@@ -113,6 +113,8 @@ private:
     int imageSourceIndexNoise;
     int imageSourceIndexPointSprite;
 
+    float imageSourceAspectRatio;
+
     bool frameByframe;
 
     GLuint* textureIds;
