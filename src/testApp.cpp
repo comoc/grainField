@@ -1713,6 +1713,7 @@ void testApp::parseMidiData()
         itr = midiDatas.erase(itr);
 
 
+        printf("MIDI id:%d value:%d\n", id, value);
         int midiId[54] =
         {
             14, 15, 16, 17, 18, 19, 20, 21, 22,
@@ -1956,8 +1957,8 @@ void testApp::newMidiMessage(ofxMidiMessage& msg)
         return;
 
     // FIXME check data order.
-    MIDIData md = {msg.portNum, msg.pitch, msg.value, msg.deltatime};
-
+    MIDIData md = {msg.portNum, msg.control, msg.value, msg.deltatime};
+    printf("msg.portNum %d, msg.pitch %d, msg.value %d, msg.control %d, msg.channel%d\n", msg.portNum, msg.pitch, msg.value, msg.control, msg.channel);
     midiDatas.push_back(md);
 }
 
@@ -2520,7 +2521,7 @@ void testApp::resetControllableParameters()
     autoRotation.setup(0, 30, 0, 128);
     focalOffset.setup(-1, 1, 0.9f, 128);
     feedbackGain.setup(0, 1, 0.0f, 128);
-    soundPeakGain.setup(0, 4, 0.0f, 128);
+    soundPeakGain.setup(0, 8, 0.0f, 128);
 
     float max = autoRotation.getRangeMax();
     float min = autoRotation.getRangeMin();
