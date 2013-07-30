@@ -27,7 +27,7 @@ grainField depends on openFrameworks and other libraries.
   <https://github.com/danomatika/ofxMidi>
 * ofxSyphon (modified version)
   <https://github.com/comoc/ofxSyphon>
-  (The original ofxSyphone is <https://github.com/astellato/ofxSyphon>)
+    (Derived from <https://github.com/astellato/ofxSyphon>)
 * json-c
   <https://github.com/json-c/json-c>
 * FFTW 3
