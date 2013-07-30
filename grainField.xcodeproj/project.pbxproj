@@ -64,7 +64,7 @@
 		FD9ED76616CA5D0200032F29 /* ofxOscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD9ED75816CA5D0200032F29 /* ofxOscSender.cpp */; };
 		FD9ED77F16CA698D00032F29 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FD9ED71E16CA5B5800032F29 /* GLUT.framework */; };
 		FD9ED90016CA6CD100032F29 /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD9ED71D16CA5B2000032F29 /* openFrameworksDebug.a */; };
-		FDB36927169116E500A8F756 /* balls.icns in Resources */ = {isa = PBXBuildFile; fileRef = FD70DBFA169075EE000380AF /* balls.icns */; };
+		FDCF2A4F17A7B17B0064ABAC /* grainField.icns in Resources */ = {isa = PBXBuildFile; fileRef = FDCF2A4E17A7B17B0064ABAC /* grainField.icns */; };
 		FDF1A93716CF4D63001850DE /* ofxRtMidiIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FDF1A90D16CF4D63001850DE /* ofxRtMidiIn.cpp */; };
 		FDF1A93816CF4D63001850DE /* ofxRtMidiOut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FDF1A90F16CF4D63001850DE /* ofxRtMidiOut.cpp */; };
 		FDF1A93916CF4D63001850DE /* readme in Resources */ = {isa = PBXBuildFile; fileRef = FDF1A91216CF4D63001850DE /* readme */; };
@@ -596,6 +596,7 @@
 		FD9ED8FB16CA6C3D00032F29 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		FD9ED8FD16CA6C3D00032F29 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		FDB369231691151500A8F756 /* grainField-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "grainField-Info.plist"; sourceTree = "<group>"; };
+		FDCF2A4E17A7B17B0064ABAC /* grainField.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = grainField.icns; sourceTree = "<group>"; };
 		FDF1A90D16CF4D63001850DE /* ofxRtMidiIn.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxRtMidiIn.cpp; sourceTree = "<group>"; };
 		FDF1A90E16CF4D63001850DE /* ofxRtMidiIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxRtMidiIn.h; sourceTree = "<group>"; };
 		FDF1A90F16CF4D63001850DE /* ofxRtMidiOut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxRtMidiOut.cpp; sourceTree = "<group>"; };
@@ -714,6 +715,7 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
+				FDCF2A4E17A7B17B0064ABAC /* grainField.icns */,
 				FD636B0B17A643B800F82DA8 /* Syphon.framework */,
 				FD9ED78516CA6C3900032F29 /* lib */,
 				FD3F20F716ADE33E00F4B607 /* README.md */,
@@ -1722,7 +1724,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FDB36927169116E500A8F756 /* balls.icns in Resources */,
+				FDCF2A4F17A7B17B0064ABAC /* grainField.icns in Resources */,
 				FD3F20F816ADE33E00F4B607 /* README.md in Resources */,
 				FD9ED71A16CA5B2000032F29 /* CoreOF.xcconfig in Resources */,
 				FDF1A93916CF4D63001850DE /* readme in Resources */,
