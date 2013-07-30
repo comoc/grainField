@@ -32,6 +32,8 @@
 #include "ofxMidiIn.h"
 #endif
 
+#include "ofxSyphon.h"
+
 #include "ImageSource.h"
 
 #include "fftw3.h"
@@ -256,6 +258,18 @@ private:
 
     float lastParameterFade;
 
+	ofxSyphonServer mainOutputSyphonServer;
+//    ofxSyphonClient mClient;
+    GLuint frameTexture;
+    struct Size2Di {
+        int width;
+        int height;
+        Size2Di() : width(0), height(0) {}
+        Size2Di(int w, int h) : width(w), height(h) {}
+        void set(int w, int h) { width = w; height = h; }
+    };
+    Size2Di frameTextureSize;
+    
     static const float PARAMETER_STEP;
 
     static const float KEY_REPEAT_PROCESS_SKIP_INTERVAL_SEC;

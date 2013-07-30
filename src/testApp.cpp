@@ -641,6 +641,23 @@ void testApp::setup()
     cameraCaptureBuffer = 0;
     cameraCaptureBufferSize = 0;
 #endif
+    
+    
+    mainOutputSyphonServer.setName("grainField");
+    //    mClient.setApplicationName("grainField Simple Server");
+    //    mClient.setServerName("");
+    
+    
+    frameTextureSize.set(ofGetWidth(), ofGetHeight());
+    glGenTextures(1, &frameTexture);
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, frameTexture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, frameTextureSize.width, frameTextureSize.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);	
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glDisable(GL_TEXTURE_2D);
 }
 
 void testApp::exit()
@@ -745,6 +762,8 @@ void testApp::exit()
 
     if (noiseImage != 0)
         delete[] noiseImage;
+    
+    glDeleteTextures(1, &frameTexture);
 }
 
 //--------------------------------------------------------------
@@ -773,7 +792,7 @@ void testApp::update()
 
 //-------------	-------------------------------------------------
 void testApp::draw()
-{
+{    
     UpdateMultiTouch();
 
     updateWindowParameters();
@@ -782,6 +801,13 @@ void testApp::draw()
     parseMidiData();
 #endif
     
+    
+    float aspect = (float)ofGetWidth() / (float)ofGetHeight();
+    
+    //float pixelAspect = (((float)ww / (float)width) / ((float)wh / (float)height));
+    //aspect = pixelAspect / 1.33f;
+    //aspect = pixelAspect / aspect;
+        
     
 //	for (int ny = 0; ny < 256; ny++) {
 //		int iy = ny * 256 * 2;
@@ -834,13 +860,6 @@ void testApp::draw()
         glDisable(GL_POINT_SMOOTH);
     else
         glEnable(GL_POINT_SMOOTH);
-
-    float aspect = (float)ofGetWidth() / (float)ofGetHeight();
-
-    //float pixelAspect = (((float)ww / (float)width) / ((float)wh / (float)height));
-    //aspect = pixelAspect / 1.33f;
-    //aspect = pixelAspect / aspect;
-
 
     glEnable(GL_DEPTH_TEST);
 
@@ -1312,7 +1331,7 @@ void testApp::draw()
     shaderDof->inactivate();
 
 //	fboFeedback->detach();
-
+    
 #if 0
     //-------------------------------------
     // 3rd pass
@@ -1343,7 +1362,6 @@ void testApp::draw()
     //-------------------------------------
     // the last pass
     //-------------------------------------
-
     glEnable(GL_BLEND);
     glBlendEquationEXT(GL_FUNC_ADD_EXT);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -1416,6 +1434,7 @@ void testApp::draw()
         glDisable(GL_DEPTH_TEST);
 
         glEnable(GL_TEXTURE_2D);
+        glActiveTexture(GL_TEXTURE0);
         glColor4f(1, 1, 1, alpha);
         glBegin(GL_TRIANGLE_FAN);
         glTexCoord2f(0, 1);
@@ -1428,9 +1447,70 @@ void testApp::draw()
         glVertex2f(1, 1);
         glEnd();
 
-        glActiveTexture(GL_TEXTURE0);
-        glEnable(GL_TEXTURE_2D);
+        glDisable(GL_TEXTURE_2D);
     }
+
+    
+    GLint textureUnits;
+    glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &textureUnits);
+    for (GLint n = 0; n < textureUnits; n++)
+    {
+        glActiveTexture(GL_TEXTURE0 + n);
+        glDisable(GL_TEXTURE_2D);
+    }
+    
+    glViewport(0, 0, width, height);
+    
+#if 1
+    glReadBuffer(GL_BACK);
+    glActiveTexture(GL_TEXTURE0);
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, frameTexture);
+    glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, frameTextureSize.width, frameTextureSize.height);
+    glActiveTexture(GL_TEXTURE0);
+	glDisable(GL_TEXTURE_2D);
+    mainOutputSyphonServer.publishTexture2(frameTexture, GL_TEXTURE_2D, frameTextureSize.width, frameTextureSize.height, true);
+#endif
+
+#if 0 // TEST
+    glDisable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, frameTexture);
+    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+    glMatrixMode(GL_MODELVIEW);
+
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
+    glOrtho(-aspect, aspect, -1, 1, -1, 100.0);
+    
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glLoadIdentity();
+
+    glEnable(GL_BLEND);
+    glBlendEquationEXT(GL_FUNC_ADD_EXT);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
+    glDisable(GL_BLEND);
+    glDisable(GL_LIGHTING);
+
+    glScalef(0.25f, 0.25f, 1.0f);
+
+    glBegin(GL_TRIANGLE_FAN);
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glTexCoord2f(0, 1);
+    glVertex2f(-1, 1);
+    glTexCoord2f(0, 0);
+    glVertex2f(-1, -1);
+    glTexCoord2f(1, 0);
+    glVertex2f(1, -1);
+    glTexCoord2f(1, 1);
+    glVertex2f(1, 1);
+    glEnd();
+#endif // 0 TEST
+    
 }
 
 //--------------------------------------------------------------

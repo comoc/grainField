@@ -39,6 +39,12 @@
 		FD4A32F116904F9100DCEE85 /* libfftw3f.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD4A32B316904F9100DCEE85 /* libfftw3f.a */; };
 		FD4A33041690553B00DCEE85 /* libjson-c.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD4A33021690553B00DCEE85 /* libjson-c.a */; };
 		FD4A33051690553B00DCEE85 /* libjson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD4A33031690553B00DCEE85 /* libjson.a */; };
+		FD636B0217A6415C00F82DA8 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD636ADE17A6415C00F82DA8 /* Syphon.framework */; };
+		FD636B0317A6415C00F82DA8 /* SyphonNameboundClient.m in Sources */ = {isa = PBXBuildFile; fileRef = FD636AE117A6415C00F82DA8 /* SyphonNameboundClient.m */; };
+		FD636B0417A6415C00F82DA8 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = FD636AE217A6415C00F82DA8 /* README.md */; };
+		FD636B0517A6415C00F82DA8 /* ofxSyphonClient.mm in Sources */ = {isa = PBXBuildFile; fileRef = FD636AE617A6415C00F82DA8 /* ofxSyphonClient.mm */; };
+		FD636B0617A6415C00F82DA8 /* ofxSyphonServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = FD636AE817A6415C00F82DA8 /* ofxSyphonServer.mm */; };
+		FD636B0C17A643B800F82DA8 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FD636B0B17A643B800F82DA8 /* Syphon.framework */; };
 		FD9ED71A16CA5B2000032F29 /* CoreOF.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = FD9ED71616CA5B2000032F29 /* CoreOF.xcconfig */; };
 		FD9ED71F16CA5B5800032F29 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD9ED71E16CA5B5800032F29 /* GLUT.framework */; };
 		FD9ED72116CA5BCF00032F29 /* MultitouchSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD9ED72016CA5BCF00032F29 /* MultitouchSupport.framework */; };
@@ -87,6 +93,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				FD636B0C17A643B800F82DA8 /* Syphon.framework in CopyFiles */,
 				FD9ED77F16CA698D00032F29 /* GLUT.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -181,6 +188,16 @@
 		FD4A33021690553B00DCEE85 /* libjson-c.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libjson-c.a"; sourceTree = "<group>"; };
 		FD4A33031690553B00DCEE85 /* libjson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjson.a; sourceTree = "<group>"; };
 		FD4A331B16906A9900DCEE85 /* grainFieldDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = grainFieldDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD636ADE17A6415C00F82DA8 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Syphon.framework; sourceTree = "<group>"; };
+		FD636AE017A6415C00F82DA8 /* SyphonNameboundClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyphonNameboundClient.h; sourceTree = "<group>"; };
+		FD636AE117A6415C00F82DA8 /* SyphonNameboundClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyphonNameboundClient.m; sourceTree = "<group>"; };
+		FD636AE217A6415C00F82DA8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		FD636AE417A6415C00F82DA8 /* ofxSyphon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSyphon.h; sourceTree = "<group>"; };
+		FD636AE517A6415C00F82DA8 /* ofxSyphonClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSyphonClient.h; sourceTree = "<group>"; };
+		FD636AE617A6415C00F82DA8 /* ofxSyphonClient.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxSyphonClient.mm; sourceTree = "<group>"; };
+		FD636AE717A6415C00F82DA8 /* ofxSyphonServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSyphonServer.h; sourceTree = "<group>"; };
+		FD636AE817A6415C00F82DA8 /* ofxSyphonServer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxSyphonServer.mm; sourceTree = "<group>"; };
+		FD636B0B17A643B800F82DA8 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Syphon.framework; path = ../../../addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework; sourceTree = "<group>"; };
 		FD70DBFA169075EE000380AF /* balls.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = balls.icns; sourceTree = "<group>"; };
 		FD9ED71616CA5B2000032F29 /* CoreOF.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = CoreOF.xcconfig; path = ../../../libs/openFrameworksCompiled/project/osx/CoreOF.xcconfig; sourceTree = "<group>"; };
 		FD9ED71716CA5B2000032F29 /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = "<group>"; };
@@ -628,6 +645,7 @@
 				FD9ED71F16CA5B5800032F29 /* GLUT.framework in Frameworks */,
 				FD9ED72116CA5BCF00032F29 /* MultitouchSupport.framework in Frameworks */,
 				FD9ED72316CA5BED00032F29 /* CoreMIDI.framework in Frameworks */,
+				FD636B0217A6415C00F82DA8 /* Syphon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,6 +663,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				FD636AA617A6415C00F82DA8 /* ofxSyphon */,
 				2413c01760b1811bed0f502df2311b72 /* ofxMidi */,
 				e6053ab7fec63d5f83825b880ce53c41 /* ofxOsc */,
 			);
@@ -695,6 +714,7 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
+				FD636B0B17A643B800F82DA8 /* Syphon.framework */,
 				FD9ED78516CA6C3900032F29 /* lib */,
 				FD3F20F716ADE33E00F4B607 /* README.md */,
 				FDB369231691151500A8F756 /* grainField-Info.plist */,
@@ -903,6 +923,71 @@
 				FD4A33031690553B00DCEE85 /* libjson.a */,
 			);
 			path = lib;
+			sourceTree = "<group>";
+		};
+		FD636AA617A6415C00F82DA8 /* ofxSyphon */ = {
+			isa = PBXGroup;
+			children = (
+				FD636ADA17A6415C00F82DA8 /* libs */,
+				FD636AE217A6415C00F82DA8 /* README.md */,
+				FD636AE317A6415C00F82DA8 /* src */,
+			);
+			name = ofxSyphon;
+			path = ../../../addons/ofxSyphon;
+			sourceTree = "<group>";
+		};
+		FD636ADA17A6415C00F82DA8 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				FD636ADB17A6415C00F82DA8 /* Syphon */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		FD636ADB17A6415C00F82DA8 /* Syphon */ = {
+			isa = PBXGroup;
+			children = (
+				FD636ADC17A6415C00F82DA8 /* lib */,
+				FD636ADF17A6415C00F82DA8 /* src */,
+			);
+			path = Syphon;
+			sourceTree = "<group>";
+		};
+		FD636ADC17A6415C00F82DA8 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				FD636ADD17A6415C00F82DA8 /* osx */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		FD636ADD17A6415C00F82DA8 /* osx */ = {
+			isa = PBXGroup;
+			children = (
+				FD636ADE17A6415C00F82DA8 /* Syphon.framework */,
+			);
+			path = osx;
+			sourceTree = "<group>";
+		};
+		FD636ADF17A6415C00F82DA8 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				FD636AE017A6415C00F82DA8 /* SyphonNameboundClient.h */,
+				FD636AE117A6415C00F82DA8 /* SyphonNameboundClient.m */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		FD636AE317A6415C00F82DA8 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				FD636AE417A6415C00F82DA8 /* ofxSyphon.h */,
+				FD636AE517A6415C00F82DA8 /* ofxSyphonClient.h */,
+				FD636AE617A6415C00F82DA8 /* ofxSyphonClient.mm */,
+				FD636AE717A6415C00F82DA8 /* ofxSyphonServer.h */,
+				FD636AE817A6415C00F82DA8 /* ofxSyphonServer.mm */,
+			);
+			path = src;
 			sourceTree = "<group>";
 		};
 		FD9ED71816CA5B2000032F29 /* Products */ = {
@@ -1641,6 +1726,7 @@
 				FD3F20F816ADE33E00F4B607 /* README.md in Resources */,
 				FD9ED71A16CA5B2000032F29 /* CoreOF.xcconfig in Resources */,
 				FDF1A93916CF4D63001850DE /* readme in Resources */,
+				FD636B0417A6415C00F82DA8 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1701,6 +1787,9 @@
 				FDF1A94616CF4D63001850DE /* ofxMidiIn.cpp in Sources */,
 				FDF1A94716CF4D63001850DE /* ofxMidiMessage.cpp in Sources */,
 				FDF1A94816CF4D63001850DE /* ofxMidiOut.cpp in Sources */,
+				FD636B0317A6415C00F82DA8 /* SyphonNameboundClient.m in Sources */,
+				FD636B0517A6415C00F82DA8 /* ofxSyphonClient.mm in Sources */,
+				FD636B0617A6415C00F82DA8 /* ofxSyphonServer.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1810,8 +1899,9 @@
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
 					"\"$(SRCROOT)/../../../libs/glut/lib/osx\"",
+					"\"$(SRCROOT)/../../../addons/ofxSyphon/libs/Syphon/lib/osx\"",
 				);
-				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../outsource/openFrameworks/libs/glut/lib/osx\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_TUNING = NONE;
@@ -1886,6 +1976,7 @@
 					"\"$(SRCROOT)/json-c/lib\"",
 					"\"$(SRCROOT)/../../../libs/openFrameworksCompiled/lib/osx\"",
 				);
+				LIB_GLUT = "\"$(OF_PATH)/libs/glut/lib/osx/GLUT.framework/Versions/A/GLUT\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = "$(OF_CORE_LIBS)";
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
@@ -1903,8 +1994,9 @@
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
 					"\"$(SRCROOT)/../../../libs/glut/lib/osx\"",
+					"\"$(SRCROOT)/../../../addons/ofxSyphon/libs/Syphon/lib/osx\"",
 				);
-				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../outsource/openFrameworks/libs/glut/lib/osx\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_TUNING = NONE;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1978,6 +2070,7 @@
 					"\"$(SRCROOT)/json-c/lib\"",
 					"\"$(SRCROOT)/../../../libs/openFrameworksCompiled/lib/osx\"",
 				);
+				LIB_GLUT = "\"$(OF_PATH)/libs/glut/lib/osx/GLUT.framework/Versions/A/GLUT\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = "$(OF_CORE_LIBS)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

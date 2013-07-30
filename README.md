@@ -3,7 +3,7 @@
 *grainField* is a tool for VJ (video jockey), mixes movie files, synchronize
 visual effects to the sounds and separate pixels into point cloud.
 
-You can use a keyboard, MIDI devices and OSC cliant applications as controller.
+You can use a keyboard, MIDI devices and OSC cliant applications as a controller.
 
 ## Screenshot
 This is an example.
@@ -25,6 +25,8 @@ grainField depends on openFrameworks and other libraries.
   <http://www.openframeworks.cc/>
 * ofxMidi
   <https://github.com/danomatika/ofxMidi>
+* ofxSyphon
+  <https://github.com/astellato/ofxSyphon>
 * json-c
   <https://github.com/json-c/json-c>
 * FFTW 3
