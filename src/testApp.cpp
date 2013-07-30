@@ -763,6 +763,7 @@ void testApp::exit()
     if (noiseImage != 0)
         delete[] noiseImage;
     
+    mainOutputSyphonServer.stop();
     glDeleteTextures(1, &frameTexture);
 }
 
@@ -1461,7 +1462,6 @@ void testApp::draw()
     
     glViewport(0, 0, width, height);
     
-#if 1
     glReadBuffer(GL_BACK);
     glActiveTexture(GL_TEXTURE0);
 	glEnable(GL_TEXTURE_2D);
@@ -1469,48 +1469,7 @@ void testApp::draw()
     glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, frameTextureSize.width, frameTextureSize.height);
     glActiveTexture(GL_TEXTURE0);
 	glDisable(GL_TEXTURE_2D);
-    mainOutputSyphonServer.publishTexture2(frameTexture, GL_TEXTURE_2D, frameTextureSize.width, frameTextureSize.height, true);
-#endif
-
-#if 0 // TEST
-    glDisable(GL_DEPTH_TEST);
-    glEnable(GL_BLEND);
-	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, frameTexture);
-    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-    glMatrixMode(GL_MODELVIEW);
-
-    glMatrixMode(GL_PROJECTION);
-    glPushMatrix();
-    glLoadIdentity();
-    glOrtho(-aspect, aspect, -1, 1, -1, 100.0);
-    
-    glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
-    glLoadIdentity();
-
-    glEnable(GL_BLEND);
-    glBlendEquationEXT(GL_FUNC_ADD_EXT);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    
-    glDisable(GL_BLEND);
-    glDisable(GL_LIGHTING);
-
-    glScalef(0.25f, 0.25f, 1.0f);
-
-    glBegin(GL_TRIANGLE_FAN);
-    glColor3f(1.0f, 1.0f, 1.0f);
-    glTexCoord2f(0, 1);
-    glVertex2f(-1, 1);
-    glTexCoord2f(0, 0);
-    glVertex2f(-1, -1);
-    glTexCoord2f(1, 0);
-    glVertex2f(1, -1);
-    glTexCoord2f(1, 1);
-    glVertex2f(1, 1);
-    glEnd();
-#endif // 0 TEST
-    
+    mainOutputSyphonServer.publishTexture(frameTexture, GL_TEXTURE_2D, frameTextureSize.width, frameTextureSize.height, true); 
 }
 
 //--------------------------------------------------------------

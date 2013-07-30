@@ -198,7 +198,6 @@
 		FD636AE717A6415C00F82DA8 /* ofxSyphonServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSyphonServer.h; sourceTree = "<group>"; };
 		FD636AE817A6415C00F82DA8 /* ofxSyphonServer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxSyphonServer.mm; sourceTree = "<group>"; };
 		FD636B0B17A643B800F82DA8 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Syphon.framework; path = ../../../addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework; sourceTree = "<group>"; };
-		FD70DBFA169075EE000380AF /* balls.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = balls.icns; sourceTree = "<group>"; };
 		FD9ED71616CA5B2000032F29 /* CoreOF.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = CoreOF.xcconfig; path = ../../../libs/openFrameworksCompiled/project/osx/CoreOF.xcconfig; sourceTree = "<group>"; };
 		FD9ED71716CA5B2000032F29 /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = "<group>"; };
 		FD9ED71E16CA5B5800032F29 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
@@ -720,7 +719,6 @@
 				FD9ED78516CA6C3900032F29 /* lib */,
 				FD3F20F716ADE33E00F4B607 /* README.md */,
 				FDB369231691151500A8F756 /* grainField-Info.plist */,
-				FD70DBFA169075EE000380AF /* balls.icns */,
 				FD4A32A416904F3C00DCEE85 /* external */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
