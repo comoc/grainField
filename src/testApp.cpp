@@ -42,8 +42,6 @@
 #include "GLshader.h"
 #include "Framebuffer.h"
 
-#include "MultiTouch.h"
-
 const float testApp::PEAK_DECAY_MAX = 0.99f;
 const float testApp::PEAK_DECAY_MIN = 0.1f;
 const float testApp::PEAK_DECAY_DEFAULT = 0.98f;
@@ -333,8 +331,6 @@ testApp::testApp()
 //--------------------------------------------------------------
 void testApp::setup()
 {
-    InitMultiTouch();
-
     noiseImage = new GLuint[256 * 256];
 
     beatDetector.reset();
@@ -794,8 +790,6 @@ void testApp::update()
 //-------------	-------------------------------------------------
 void testApp::draw()
 {    
-    UpdateMultiTouch();
-
     updateWindowParameters();
     updateOscMessage();
 #ifdef USE_MIDI_IN

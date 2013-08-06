@@ -32,7 +32,6 @@
 		FD4A329E16904EC300DCEE85 /* IntervalTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD4A328D16904EC300DCEE85 /* IntervalTimer.cpp */; };
 		FD4A329F16904EC300DCEE85 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD4A328F16904EC300DCEE85 /* main.cpp */; };
 		FD4A32A016904EC300DCEE85 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD4A329016904EC300DCEE85 /* Mesh.cpp */; };
-		FD4A32A116904EC300DCEE85 /* MultiTouch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD4A329216904EC300DCEE85 /* MultiTouch.cpp */; };
 		FD4A32A216904EC300DCEE85 /* Server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD4A329416904EC300DCEE85 /* Server.cpp */; };
 		FD4A32A316904EC300DCEE85 /* testApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD4A329616904EC300DCEE85 /* testApp.cpp */; };
 		FD4A32EF16904F9100DCEE85 /* fftw3.f in Sources */ = {isa = PBXBuildFile; fileRef = FD4A32AB16904F9100DCEE85 /* fftw3.f */; };
@@ -135,8 +134,6 @@
 		FD4A328F16904EC300DCEE85 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		FD4A329016904EC300DCEE85 /* Mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mesh.cpp; sourceTree = "<group>"; };
 		FD4A329116904EC300DCEE85 /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mesh.h; sourceTree = "<group>"; };
-		FD4A329216904EC300DCEE85 /* MultiTouch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MultiTouch.cpp; sourceTree = "<group>"; };
-		FD4A329316904EC300DCEE85 /* MultiTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiTouch.h; sourceTree = "<group>"; };
 		FD4A329416904EC300DCEE85 /* Server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Server.cpp; sourceTree = "<group>"; };
 		FD4A329516904EC300DCEE85 /* Server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Server.h; sourceTree = "<group>"; };
 		FD4A329616904EC300DCEE85 /* testApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testApp.cpp; sourceTree = "<group>"; };
@@ -749,8 +746,6 @@
 				FD4A328F16904EC300DCEE85 /* main.cpp */,
 				FD4A329016904EC300DCEE85 /* Mesh.cpp */,
 				FD4A329116904EC300DCEE85 /* Mesh.h */,
-				FD4A329216904EC300DCEE85 /* MultiTouch.cpp */,
-				FD4A329316904EC300DCEE85 /* MultiTouch.h */,
 				FD4A329416904EC300DCEE85 /* Server.cpp */,
 				FD4A329516904EC300DCEE85 /* Server.h */,
 				FD4A329616904EC300DCEE85 /* testApp.cpp */,
@@ -1762,7 +1757,6 @@
 				FD4A329E16904EC300DCEE85 /* IntervalTimer.cpp in Sources */,
 				FD4A329F16904EC300DCEE85 /* main.cpp in Sources */,
 				FD4A32A016904EC300DCEE85 /* Mesh.cpp in Sources */,
-				FD4A32A116904EC300DCEE85 /* MultiTouch.cpp in Sources */,
 				FD4A32A216904EC300DCEE85 /* Server.cpp in Sources */,
 				FD4A32A316904EC300DCEE85 /* testApp.cpp in Sources */,
 				FD4A32EF16904F9100DCEE85 /* fftw3.f in Sources */,
