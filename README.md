@@ -1,7 +1,7 @@
 # grainField
 
-*grainField* is a tool for VJ (video jockey), mixes movie files, synchronize
-visual effects to the sounds and separate pixels into point cloud.
+*grainField* is a tool for VJ (video jockey), mixes movie files, powderize pixels and synchronizes
+visuals with the audio input.
 
 You can use a keyboard, MIDI devices and OSC cliant applications as a controller.
 
