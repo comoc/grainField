@@ -39,7 +39,7 @@
 #include <list>
 
 #include "Mesh.h"
-#include "GLshader.h"
+#include "GLShader.h"
 #include "Framebuffer.h"
 
 const float testApp::PEAK_DECAY_MAX = 0.99f;
@@ -759,13 +759,18 @@ void testApp::exit()
     if (noiseImage != 0)
         delete[] noiseImage;
     
-    mainOutputSyphonServer.stop();
+    //mainOutputSyphonServer.stop();
     glDeleteTextures(1, &frameTexture);
 }
 
 //--------------------------------------------------------------
 void testApp::update()
 {
+    updateWindowParameters();
+    updateOscMessage();
+#ifdef USE_MIDI_IN
+    parseMidiData();
+#endif
 
     for (vector<ImageSource*>::iterator it = imageSources.begin(); it != imageSources.end(); it++)
     {
@@ -783,20 +788,16 @@ void testApp::update()
     {
         (*it)->update();
     }
+    
     if (imageSourceCamera != 0)
         imageSourceCamera->update();
 }
 
 //-------------	-------------------------------------------------
 void testApp::draw()
-{    
-    updateWindowParameters();
-    updateOscMessage();
-#ifdef USE_MIDI_IN
-    parseMidiData();
-#endif
-    
-    
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
     float aspect = (float)ofGetWidth() / (float)ofGetHeight();
     
     //float pixelAspect = (((float)ww / (float)width) / ((float)wh / (float)height));

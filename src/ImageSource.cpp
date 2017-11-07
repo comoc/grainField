@@ -200,11 +200,11 @@ int ImageSource::getWidth()
         return 0;
 
     if (type == TYPE_VIDEO)
-        return ((ofVideoPlayer*)image)->width;
+        return ((ofVideoPlayer*)image)->getWidth();
     else if (type == TYPE_LIVE_CAMERA)
-        return ((ofVideoGrabber*)image)->width;
+        return ((ofVideoGrabber*)image)->getWidth();
     else if (type == TYPE_IMAGE)
-        return ((ofImage*)image)->width;
+        return ((ofImage*)image)->getWidth();
     return 0;
 }
 
@@ -214,11 +214,11 @@ int ImageSource::getHeight()
         return 0;
 
     if (type == TYPE_VIDEO)
-        return ((ofVideoPlayer*)image)->height;
+        return ((ofVideoPlayer*)image)->getHeight();
     else if (type == TYPE_LIVE_CAMERA)
-        return ((ofVideoGrabber*)image)->height;
+        return ((ofVideoGrabber*)image)->getHeight();
     else if (type == TYPE_IMAGE)
-        return ((ofImage*)image)->height;
+        return ((ofImage*)image)->getHeight();
     return 0;
 }
 
@@ -233,7 +233,7 @@ int ImageSource::getBytesPerPixel()
         return 3;//((ofVideoGrabber*)image)->bpp;
     else if (type == TYPE_IMAGE)
     {
-        int bytepp = ((ofImage*)image)->bpp / 8;
+        int bytepp = ((ofImage*)image)->getPixels().getBitsPerPixel() / 8;
         return bytepp;
     }
     return 0;
@@ -245,11 +245,11 @@ unsigned char* ImageSource::getPixels()
         return 0;
 
     if (type == TYPE_VIDEO)
-        return ((ofVideoPlayer*)image)->getPixels();
+        return ((ofVideoPlayer*)image)->getPixels().getData();
     else if (type == TYPE_LIVE_CAMERA)
-        return ((ofVideoGrabber*)image)->getPixels();
+        return ((ofVideoGrabber*)image)->getPixels().getData();
     else if (type == TYPE_IMAGE)
-        return ((ofImage*)image)->getPixels();
+        return ((ofImage*)image)->getPixels().getData();
 
     return 0;
 }
